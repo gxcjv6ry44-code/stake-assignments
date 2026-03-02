@@ -16,12 +16,12 @@
       color: #111;
     }
     .card {
-      max-width: 980px;
+      max-width: 920px;
       margin: 0 auto;
       background: #fff;
       border: 1px solid #e6e6e6;
       border-radius: 14px;
-      padding: 18px 18px 12px;
+      padding: 18px 18px 10px;
       box-shadow: 0 1px 6px rgba(0,0,0,.05);
     }
     h1 {
@@ -39,38 +39,24 @@
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      margin: 10px 0 10px;
+      margin: 10px 0 14px;
     }
     label { font-size: 13px; color: #333; font-weight: 600; }
     select {
-      flex: 1 1 340px;
+      flex: 1 1 320px;
       padding: 10px 12px;
       font-size: 14px;
       border-radius: 10px;
       border: 1px solid #d7d7d7;
       background: #fff;
     }
-    .summary {
-      display:none;
-      margin: 10px 0 14px;
-      padding: 10px 12px;
-      border: 1px solid #ededed;
-      border-radius: 12px;
-      background: #fcfcfc;
-      font-size: 13px;
-      color: #333;
-    }
-    .summary strong { font-weight: 700; }
-    .grid {  
+    .grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
       margin-top: 6px;
     }
-    @media (min-width: 820px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (min-width: 1080px) {
+    @media (min-width: 760px) {
       .grid { grid-template-columns: 1fr 1fr 1fr; }
     }
     .section {
@@ -83,10 +69,14 @@
       margin: 0 0 8px;
       font-size: 15px;
       font-weight: 650;
-      display:flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: baseline;
+    }
+    ul { margin: 0; padding-left: 18px; }
+    li { margin: 6px 0; font-size: 14px; }
+    .empty { color: #666; font-size: 13px; margin: 0; }
+    .footer {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #666;
     }
     .pill {
       display:inline-block;
@@ -96,29 +86,17 @@
       border: 1px solid #ddd;
       background:#fff;
       color:#333;
+      margin-left: 8px;
+      vertical-align: middle;
       white-space: nowrap;
-    }
-    ul { margin: 0; padding-left: 18px; }
-    li { margin: 6px 0; font-size: 14px; }
-    .empty { color: #666; font-size: 13px; margin: 0; }
-    .total {
-      margin-top: 8px;
-      font-size: 13px;
-      color: #333;
-      font-weight: 650;
-    }
-    .footer {
-      margin-top: 12px;
-      font-size: 12px;
-      color: #666;
     }
     .muted { color:#666; font-weight: 600; }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Stake Assignments: Pruning, Thinning, Harvest, Youth Night</h1>
-    <p class="sub">Select a stake to see assigned dates and the expected number of people for each assignment.</p>
+    <h1>Stake Assignments: Pruning, Thinning, Harvest, Youth</h1>
+    <p class="sub">Select a stake to see assigned dates. For every <strong>Pruning</strong> and <strong>Thinning</strong> date, <strong>64 people are required</strong>.</p>
 
     <div class="row">
       <label for="stakeSelect">Stake</label>
@@ -127,40 +105,35 @@
       </select>
     </div>
 
-    <div id="summary" class="summary"></div>
-
     <div id="results" class="grid" style="display:none;">
       <div class="section">
-        <h2><span>Pruning</span><span class="pill">Spring</span></h2>
+        <h2>Pruning <span class="pill">64 required</span></h2>
         <div id="pruning"></div>
       </div>
       <div class="section">
-        <h2><span>Thinning</span><span class="pill">May–July</span></h2>
+        <h2>Thinning <span class="pill">64 required</span></h2>
         <div id="thinning"></div>
       </div>
       <div class="section">
-        <h2><span>Harvest</span><span class="pill">Aug–Sep</span></h2>
+        <h2>Harvest <span class="pill">Aug–Sep</span></h2>
         <div id="harvest"></div>
       </div>
       <div class="section">
-        <h2><span>Youth Night</span><span class="pill">Evenings</span></h2>
+        <h2>Youth <span class="pill">Youth Night</span></h2>
         <div id="youth"></div>
       </div>
     </div>
 
     <div class="footer">
-      Notes: Counts come from the stake assignment calendar. If an assignment has no count listed, it will appear as “(count not listed)”. This page runs fully in the browser (no server required).
+      Tip: Host this file (GitHub Pages / Netlify) or open it locally. It runs fully in the browser—no server required.
     </div>
   </div>
 
 <script>
-  // DATA shape:
-  // DATA[stake] = { pruning:[{date, count}], thinning:[...], harvest:[...], youth:[...] }
-  const DATA = {"Brigham City South Stake": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 22}]}, "Farr West Poplar": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 20}]}, "Farr West": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 29}]}, "Harrisville": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 11}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 22}]}, "Hooper Pioneer Trail": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 15}]}, "Hooper": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 19}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 4}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 15}]}, "Huntsville": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 19}], "thinning": [{"date": "June 2", "count": 4}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 29}]}, "Kanesville": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 13}]}, "North Ogden Ben Lomond": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 4}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 8}]}, "North Ogden Coldwater": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 8}]}, "North Ogden East": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "JUNE  2-11 Thinning", "count": null}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 20}]}, "North Ogden": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 11}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 6}]}, "Ogden East Ridge": {"pruning": [{"date": "March Pruning", "count": 19}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "June 6", "count": 24}]}, "Ogden Mound Fort": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 15}]}, "Ogden Mount Lewis": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 29}]}, "Ogden": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 22}]}, "Ogden Weber North": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 15}]}, "Ogden West": {"pruning": [{"date": "March Pruning", "count": 19}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 8}]}, "Perry": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "June 2", "count": 4}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 22}]}, "Plain City": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "June 6", "count": 17}]}, "Pleasant View Orchard Springs": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "JUNE  2-11 Thinning", "count": null}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 8}]}, "Pleasant View South": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 22}]}, "Pleasant View": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "June 2", "count": 2}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 29}]}, "West Haven North": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 13}]}, "West Haven": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "June 2", "count": 2}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 29}]}, "Willard": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "June 6", "count": 17}]}};
+  const DATA = {"Brigham City South Stake": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Farr West Poplar": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["May 6"]}, "Farr West": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "Harrisville": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Hooper Pioneer Trail": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Hooper": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "Huntsville": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Kanesville": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["May 6"]}, "North Ogden Ben Lomond": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "North Ogden Coldwater": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "North Ogden East": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["May 6"]}, "North Ogden": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["May 6"]}, "Ogden East Ridge": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["June 6"]}, "Ogden Mound Fort": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Ogden Mount Lewis": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Ogden": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "Ogden Weber North": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "Ogden West": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "Perry": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Plain City": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["June 6"]}, "Pleasant View Orchard Springs": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Pleasant View South": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "Pleasant View": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["July 6"]}, "West Haven North": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["May 6"]}, "West Haven": {"pruning": ["March Pruning"], "thinning": ["JUNE 2-11 Thinning", "July 21"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["April 6"]}, "Willard": {"pruning": ["March Pruning"], "thinning": ["MAY 26-30 Thinning", "JUNE 2-11 Thinning"], "harvest": ["August 10-30 Harvest (8 per Stake)", "August 31 and Sept 1-19 Harvest (9 per Stake)"], "youth": ["June 6"]}};
 
   const stakeSelect = document.getElementById('stakeSelect');
   const results = document.getElementById('results');
-  const summary = document.getElementById('summary');
 
   function escapeHtml(str) {
     return String(str)
@@ -171,57 +144,33 @@
       .replaceAll("'",'&#39;');
   }
 
-  function formatItem(item) {
-    const d = escapeHtml(item.date);
-    if (item.count === null || item.count === undefined) {
-      return `${d} <span class="muted">(count not listed)</span>`;
-    }
-    return `${d} — <strong>${item.count}</strong> expected`;
-  }
-
-  function totalCount(items) {
-    return (items || []).reduce((sum, it) => sum + (Number.isFinite(it.count) ? it.count : 0), 0);
-  }
-
-  function renderList(items) {
+  function renderList(items, with64=false) {
     if (!items || items.length === 0) {
       return '<p class="empty">No assignments listed.</p>';
     }
-    const lis = items.map(x => `<li>${formatItem(x)}</li>`).join('');
-    const total = totalCount(items);
-    return `<ul>${lis}</ul><div class="total">Total expected: ${total}</div>`;
+    const lis = items.map(x => {
+      const d = escapeHtml(x);
+      return with64 ? `<li>${d} — <strong>64</strong> required</li>` : `<li>${d}</li>`;
+    }).join('');
+    return `<ul>${lis}</ul>`;
   }
 
   function update() {
     const stake = stakeSelect.value;
     if (!stake) {
       results.style.display = 'none';
-      summary.style.display = 'none';
-      summary.innerHTML = '';
       return;
     }
     const rec = DATA[stake] || {pruning:[], thinning:[], harvest:[], youth:[]};
 
-    document.getElementById('pruning').innerHTML = renderList(rec.pruning);
-    document.getElementById('thinning').innerHTML = renderList(rec.thinning);
-    document.getElementById('harvest').innerHTML = renderList(rec.harvest);
-    document.getElementById('youth').innerHTML = renderList(rec.youth);
-
-    const tp = totalCount(rec.pruning);
-    const tt = totalCount(rec.thinning);
-    const th = totalCount(rec.harvest);
-    const ty = totalCount(rec.youth);
-    const grand = tp + tt + th + ty;
-
-    summary.innerHTML = `<strong>${escapeHtml(stake)}</strong> — Expected people (sum of listed counts): 
-      Pruning <strong>${tp}</strong>, Thinning <strong>${tt}</strong>, Harvest <strong>${th}</strong>, Youth Night <strong>${ty}</strong>. 
-      Total <strong>${grand}</strong>.`;
-    summary.style.display = 'block';
+    document.getElementById('pruning').innerHTML = renderList(rec.pruning, true);
+    document.getElementById('thinning').innerHTML = renderList(rec.thinning, true);
+    document.getElementById('harvest').innerHTML = renderList(rec.harvest, false);
+    document.getElementById('youth').innerHTML = renderList(rec.youth, false);
 
     results.style.display = 'grid';
   }
 
-  // Populate dropdown
   Object.keys(DATA)
     .sort((a,b) => a.localeCompare(b))
     .forEach(stake => {
@@ -232,23 +181,26 @@
     });
 
   stakeSelect.addEventListener('change', update);
-  // ---- Auto-resize for iframe embedding ----
-function sendHeight() {
-  const height = document.documentElement.scrollHeight;
-  window.parent.postMessage(
-    { type: "orchardStakeHeight", height: height },
-    "*"
-  );
-}
+    // ---- Auto-resize for iframe embedding ----
+  function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    window.parent.postMessage(
+      { type: "orchardStakeHeight", height: height },
+      "*"
+    );
+  }
+  
+  // Send height on load and resize
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  
+  // Also send height after dropdown changes
+  stakeSelect.addEventListener("change", function () {
+    setTimeout(sendHeight, 50);
+  });
+  </script>
+  </body>
+  </html>
 
-// Send height on load and resize
-window.addEventListener("load", sendHeight);
-window.addEventListener("resize", sendHeight);
 
-// Also send height after dropdown changes
-stakeSelect.addEventListener("change", function () {
-  setTimeout(sendHeight, 50);
-});
-</script>
-</body>
-</html>
+
