@@ -1,177 +1,3 @@
-
-Home
-Website
-Products & Services
-Email Campaigns
-Contacts
-Analytics
-Finance
-
-SJ
-
-
-
-
-
-Main Navigation
-
-
-Home
-
-
-
-Schedule
-
-
-
-
-Stake Assignments
-
-
-
-Orchard Calendar
-
-
-
-
-ADD PAGE
-Videos
-
-
-
-
-Safety Videos
-
-
-
-Training Videos
-
-
-
-
-ADD PAGE
-Current Alerts
-
-
-
-
-Forms
-
-
-
-
-Multi Line SignUp Form
-
-
-
-Volunteer SignUp Form
-
-
-
-SafetyCompliance
-
-
-
-Volunteer Check In Sheet
-
-
-
-
-ADD PAGE
-Photos
-
-
-
-
-Orchard Photos
-
-
-
-Service Missionaries Photos
-
-
-
-Volunteer Photos
-
-
-
-Upload Photos
-
-
-
-
-ADD PAGE
-More
-
-
-
-
-FAQs
-
-
-
-About the Orchard
-
-
-
-About Peaches
-
-
-
-Map
-
-
-
-Terms, Conditions, and Privacy Policy
-
-
-
-
-ADD PAGE
-Not Linked
-
-
-Leader Forms and Reports
-
-
-
-Job Training
-
-
-
-
-Navigation and Menus
-
-
-
-Saved for Check In
-
-
-
-New Page
-
-
-
-Deleted Pages
-
-
-Marketing Tools
-Custom Code
-System Pages
-Version 7.1
-
-SAVE
-
-EXIT
-
-
-
-
-
-
-BACK
-Embed data
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -190,12 +16,12 @@ Embed data
       color: #111;
     }
     .card {
-      max-width: 920px;
+      max-width: 980px;
       margin: 0 auto;
       background: #fff;
       border: 1px solid #e6e6e6;
       border-radius: 14px;
-      padding: 18px 18px 10px;
+      padding: 18px 18px 12px;
       box-shadow: 0 1px 6px rgba(0,0,0,.05);
     }
     h1 {
@@ -213,28 +39,39 @@ Embed data
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      margin: 10px 0 14px;
+      margin: 10px 0 10px;
     }
     label { font-size: 13px; color: #333; font-weight: 600; }
     select {
-      flex: 1 1 320px;
+      flex: 1 1 340px;
       padding: 10px 12px;
       font-size: 14px;
       border-radius: 10px;
       border: 1px solid #d7d7d7;
       background: #fff;
     }
+    .summary {
+      display:none;
+      margin: 10px 0 14px;
+      padding: 10px 12px;
+      border: 1px solid #ededed;
+      border-radius: 12px;
+      background: #fcfcfc;
+      font-size: 13px;
+      color: #333;
+    }
+    .summary strong { font-weight: 700; }
     .grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
       margin-top: 6px;
     }
-    @media (min-width: 760px) {
+    @media (min-width: 820px) {
       .grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (min-width: 1040px) {
-      .grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    @media (min-width: 1080px) {
+      .grid { grid-template-columns: 1fr 1fr 1fr; }
     }
     .section {
       border: 1px solid #ededed;
@@ -246,14 +83,10 @@ Embed data
       margin: 0 0 8px;
       font-size: 15px;
       font-weight: 650;
-    }
-    ul { margin: 0; padding-left: 18px; }
-    li { margin: 6px 0; font-size: 14px; }
-    .empty { color: #666; font-size: 13px; margin: 0; }
-    .footer {
-      margin-top: 12px;
-      font-size: 12px;
-      color: #666;
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
     }
     .pill {
       display:inline-block;
@@ -263,56 +96,72 @@ Embed data
       border: 1px solid #ddd;
       background:#fff;
       color:#333;
-      margin-left: 8px;
-      vertical-align: middle;
       white-space: nowrap;
+    }
+    ul { margin: 0; padding-left: 18px; }
+    li { margin: 6px 0; font-size: 14px; }
+    .empty { color: #666; font-size: 13px; margin: 0; }
+    .total {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #333;
+      font-weight: 650;
+    }
+    .footer {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #666;
     }
     .muted { color:#666; font-weight: 600; }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Stake Assignments</h1>
-    <p class="sub">Select a stake to see assigned dates and expected people. Pruning/Thinning: <strong>64</strong> per day. Harvest: <strong>8</strong> per day through Aug 29, then <strong>9</strong> per day. Youth: no count.</p>
-​
+    <h1>Stake Assignments: Pruning, Thinning, Harvest, Youth Night</h1>
+    <p class="sub">Select a stake to see assigned dates and the expected number of people for each assignment.</p>
+
     <div class="row">
       <label for="stakeSelect">Stake</label>
       <select id="stakeSelect" aria-label="Select stake">
         <option value="">— Choose a stake —</option>
       </select>
     </div>
-​
+
+    <div id="summary" class="summary"></div>
+
     <div id="results" class="grid" style="display:none;">
       <div class="section">
-        <h2>Pruning <span class="pill">64 required</span></h2>
+        <h2><span>Pruning</span><span class="pill">Spring</span></h2>
         <div id="pruning"></div>
       </div>
       <div class="section">
-        <h2>Thinning <span class="pill">64 required</span></h2>
+        <h2><span>Thinning</span><span class="pill">May–July</span></h2>
         <div id="thinning"></div>
       </div>
       <div class="section">
-        <h2>Harvest <span class="pill">8→9</span></h2>
+        <h2><span>Harvest</span><span class="pill">Aug–Sep</span></h2>
         <div id="harvest"></div>
       </div>
       <div class="section">
-        <h2>Youth <span class="pill">All Youth</span></h2>
+        <h2><span>Youth Night</span><span class="pill">Evenings</span></h2>
         <div id="youth"></div>
       </div>
     </div>
-​
+
     <div class="footer">
-      Tip: This file runs fully in the browser—no server required.
+      Notes: Counts come from the stake assignment calendar. If an assignment has no count listed, it will appear as “(count not listed)”. This page runs fully in the browser (no server required).
     </div>
   </div>
-​
+
 <script>
-  // DATA[stake] = { pruning:[{date,people}], thinning:[...], harvest:[...], youth:[...] }
-  const DATA = {"Brigham City South Stake": {"pruning": [{"date": "03/12/2026", "people": 64}, {"date": "03/24/2026", "people": 64}], "thinning": [{"date": "05/28/2026", "people": 64}, {"date": "06/09/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/22/2026", "people": null}]}, "Farr West": {"pruning": [{"date": "03/17/2026", "people": 64}, {"date": "03/28/2026", "people": 64}], "thinning": [{"date": "06/03/2026", "people": 64}, {"date": "07/21/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/29/2026", "people": null}]}, "Farr West Poplar": {"pruning": [{"date": "03/12/2026", "people": 64}, {"date": "03/25/2026", "people": 64}], "thinning": [{"date": "05/27/2026", "people": 64}, {"date": "06/06/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "05/20/2026", "people": null}]}, "Harrisville": {"pruning": [{"date": "03/12/2026", "people": 64}, {"date": "03/25/2026", "people": 64}], "thinning": [{"date": "05/30/2026", "people": 64}, {"date": "06/11/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/22/2026", "people": null}]}, "Hooper": {"pruning": [{"date": "03/10/2026", "people": 64}, {"date": "03/19/2026", "people": 64}], "thinning": [{"date": "05/26/2026", "people": 64}, {"date": "06/04/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/15/2026", "people": null}]}, "Hooper Pioneer Trail": {"pruning": [{"date": "03/11/2026", "people": 64}, {"date": "03/24/2026", "people": 64}], "thinning": [{"date": "05/27/2026", "people": 64}, {"date": "06/09/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/15/2026", "people": null}]}, "Huntsville": {"pruning": [{"date": "03/10/2026", "people": 64}, {"date": "03/19/2026", "people": 64}], "thinning": [{"date": "06/04/2026", "people": 64}, {"date": "07/21/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/29/2026", "people": null}]}, "Kanesville": {"pruning": [{"date": "03/18/2026", "people": 64}, {"date": "03/31/2026", "people": 64}], "thinning": [{"date": "05/26/2026", "people": 64}, {"date": "06/06/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "05/13/2026", "people": null}]}, "North Ogden": {"pruning": [{"date": "03/17/2026", "people": 64}, {"date": "03/28/2026", "people": 64}], "thinning": [{"date": "05/30/2026", "people": 64}, {"date": "06/11/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "05/06/2026", "people": null}]}, "North Ogden Ben Lomond": {"pruning": [{"date": "03/14/2026", "people": 64}, {"date": "03/26/2026", "people": 64}], "thinning": [{"date": "05/26/2026", "people": 64}, {"date": "06/04/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/08/2026", "people": null}]}, "North Ogden Coldwater": {"pruning": [{"date": "03/18/2026", "people": 64}, {"date": "03/31/2026", "people": 64}], "thinning": [{"date": "05/28/2026", "people": 64}, {"date": "06/09/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/08/2026", "people": null}]}, "North Ogden East": {"pruning": [{"date": "03/18/2026", "people": 64}, {"date": "03/28/2026", "people": 64}], "thinning": [{"date": "06/02/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "05/20/2026", "people": null}]}, "Ogden": {"pruning": [{"date": "03/10/2026", "people": 64}, {"date": "03/21/2026", "people": 64}], "thinning": [{"date": "06/03/2026", "people": 64}, {"date": "07/28/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/22/2026", "people": null}]}, "Ogden East Ridge": {"pruning": [{"date": "03/19/2026", "people": 64}, {"date": "03/31/2026", "people": 64}], "thinning": [{"date": "06/03/2026", "people": 64}, {"date": "07/21/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "06/24/2026", "people": null}]}, "Ogden Mound Fort": {"pruning": [{"date": "03/18/2026", "people": 64}, {"date": "03/28/2026", "people": 64}], "thinning": [{"date": "05/27/2026", "people": 64}, {"date": "06/09/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/15/2026", "people": null}]}, "Ogden Mount Lewis": {"pruning": [{"date": "03/11/2026", "people": 64}, {"date": "03/24/2026", "people": 64}], "thinning": [{"date": "05/28/2026", "people": 64}, {"date": "06/10/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/29/2026", "people": null}]}, "Ogden Weber North": {"pruning": [{"date": "03/14/2026", "people": 64}, {"date": "03/25/2026", "people": 64}], "thinning": [{"date": "05/27/2026", "people": 64}, {"date": "06/06/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/15/2026", "people": null}]}, "Ogden West": {"pruning": [{"date": "03/19/2026", "people": 64}, {"date": "03/31/2026", "people": 64}], "thinning": [{"date": "05/26/2026", "people": 64}, {"date": "06/06/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/08/2026", "people": null}]}, "Perry": {"pruning": [{"date": "03/11/2026", "people": 64}, {"date": "03/21/2026", "people": 64}], "thinning": [{"date": "06/04/2026", "people": 64}, {"date": "07/21/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/22/2026", "people": null}]}, "Plain City": {"pruning": [{"date": "03/17/2026", "people": 64}, {"date": "03/26/2026", "people": 64}], "thinning": [{"date": "05/30/2026", "people": 64}, {"date": "06/10/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "06/17/2026", "people": null}]}, "Pleasant View": {"pruning": [{"date": "03/14/2026", "people": 64}, {"date": "03/26/2026", "people": 64}], "thinning": [{"date": "06/02/2026", "people": 64}, {"date": "07/28/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/29/2026", "people": null}]}, "Pleasant View Orchard Springs": {"pruning": [{"date": "03/11/2026", "people": 64}, {"date": "03/21/2026", "people": 64}], "thinning": [{"date": "06/02/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/08/2026", "people": null}]}, "Pleasant View South": {"pruning": [{"date": "03/10/2026", "people": 64}, {"date": "03/21/2026", "people": 64}], "thinning": [{"date": "06/03/2026", "people": 64}, {"date": "07/28/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "07/22/2026", "people": null}]}, "West Haven": {"pruning": [{"date": "03/14/2026", "people": 64}, {"date": "03/25/2026", "people": 64}], "thinning": [{"date": "06/02/2026", "people": 64}, {"date": "07/28/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "04/29/2026", "people": null}]}, "West Haven North": {"pruning": [{"date": "03/12/2026", "people": 64}, {"date": "03/24/2026", "people": 64}], "thinning": [{"date": "05/30/2026", "people": 64}, {"date": "06/10/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "05/13/2026", "people": null}]}, "Willard": {"pruning": [{"date": "03/17/2026", "people": 64}, {"date": "03/26/2026", "people": 64}], "thinning": [{"date": "05/28/2026", "people": 64}, {"date": "06/10/2026", "people": 64}], "harvest": [{"date": "08/10/2026", "people": 8}, {"date": "08/11/2026", "people": 8}, {"date": "08/12/2026", "people": 8}, {"date": "08/13/2026", "people": 8}, {"date": "08/14/2026", "people": 8}, {"date": "08/15/2026", "people": 8}, {"date": "08/16/2026", "people": 8}, {"date": "08/17/2026", "people": 8}, {"date": "08/18/2026", "people": 8}, {"date": "08/19/2026", "people": 8}, {"date": "08/20/2026", "people": 8}, {"date": "08/21/2026", "people": 8}, {"date": "08/22/2026", "people": 8}, {"date": "08/23/2026", "people": 8}, {"date": "08/24/2026", "people": 8}, {"date": "08/25/2026", "people": 8}, {"date": "08/26/2026", "people": 8}, {"date": "08/27/2026", "people": 8}, {"date": "08/28/2026", "people": 8}, {"date": "08/29/2026", "people": 8}, {"date": "08/30/2026", "people": 9}, {"date": "08/31/2026", "people": 9}, {"date": "09/01/2026", "people": 9}, {"date": "09/02/2026", "people": 9}, {"date": "09/03/2026", "people": 9}, {"date": "09/04/2026", "people": 9}, {"date": "09/05/2026", "people": 9}, {"date": "09/06/2026", "people": 9}, {"date": "09/07/2026", "people": 9}, {"date": "09/08/2026", "people": 9}, {"date": "09/09/2026", "people": 9}, {"date": "09/10/2026", "people": 9}, {"date": "09/11/2026", "people": 9}, {"date": "09/12/2026", "people": 9}, {"date": "09/13/2026", "people": 9}, {"date": "09/14/2026", "people": 9}, {"date": "09/15/2026", "people": 9}, {"date": "09/16/2026", "people": 9}, {"date": "09/17/2026", "people": 9}, {"date": "09/18/2026", "people": 9}, {"date": "09/19/2026", "people": 9}], "youth": [{"date": "06/17/2026", "people": null}]}};
-​
+  // DATA shape:
+  // DATA[stake] = { pruning:[{date, count}], thinning:[...], harvest:[...], youth:[...] }
+  const DATA = {"Brigham City South Stake": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 22}]}, "Farr West Poplar": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 20}]}, "Farr West": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 29}]}, "Harrisville": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 11}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 22}]}, "Hooper Pioneer Trail": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 15}]}, "Hooper": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 19}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 4}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 15}]}, "Huntsville": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 19}], "thinning": [{"date": "June 2", "count": 4}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 29}]}, "Kanesville": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 13}]}, "North Ogden Ben Lomond": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 4}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 8}]}, "North Ogden Coldwater": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 8}]}, "North Ogden East": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "JUNE  2-11 Thinning", "count": null}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 20}]}, "North Ogden": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 11}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 6}]}, "Ogden East Ridge": {"pruning": [{"date": "March Pruning", "count": 19}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "June 6", "count": 24}]}, "Ogden Mound Fort": {"pruning": [{"date": "March Pruning", "count": 18}, {"date": "March Pruning", "count": 28}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 9}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 15}]}, "Ogden Mount Lewis": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 29}]}, "Ogden": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 22}]}, "Ogden Weber North": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "May 26", "count": 27}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 15}]}, "Ogden West": {"pruning": [{"date": "March Pruning", "count": 19}, {"date": "March Pruning", "count": 31}], "thinning": [{"date": "May 26", "count": 26}, {"date": "June 2", "count": 6}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 8}]}, "Perry": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "June 2", "count": 4}, {"date": "July 21", "count": 21}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 22}]}, "Plain City": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "June 6", "count": 17}]}, "Pleasant View Orchard Springs": {"pruning": [{"date": "March Pruning", "count": 11}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "JUNE  2-11 Thinning", "count": null}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 8}]}, "Pleasant View South": {"pruning": [{"date": "March Pruning", "count": 10}, {"date": "March Pruning", "count": 21}], "thinning": [{"date": "June 2", "count": 3}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 22}]}, "Pleasant View": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "June 2", "count": 2}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "July 6", "count": 29}]}, "West Haven North": {"pruning": [{"date": "March Pruning", "count": 12}, {"date": "March Pruning", "count": 24}], "thinning": [{"date": "May 26", "count": 30}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "May 6", "count": 13}]}, "West Haven": {"pruning": [{"date": "March Pruning", "count": 14}, {"date": "March Pruning", "count": 25}], "thinning": [{"date": "June 2", "count": 2}, {"date": "July 21", "count": 28}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "April 6", "count": 29}]}, "Willard": {"pruning": [{"date": "March Pruning", "count": 17}, {"date": "March Pruning", "count": 26}], "thinning": [{"date": "May 26", "count": 28}, {"date": "June 2", "count": 10}], "harvest": [{"date": "August 10-30  Harvest  (8 per Stake)", "count": null}, {"date": "August 31 and Sept 1-19  Harvest   (9 per Stake)", "count": null}], "youth": [{"date": "June 6", "count": 17}]}};
+
   const stakeSelect = document.getElementById('stakeSelect');
   const results = document.getElementById('results');
-​
+  const summary = document.getElementById('summary');
+
   function escapeHtml(str) {
     return String(str)
       .replaceAll('&','&amp;')
@@ -321,96 +170,57 @@ Embed data
       .replaceAll('"','&quot;')
       .replaceAll("'",'&#39;');
   }
-​
-  function renderList(items, showPeople, mode) {
+
+  function formatItem(item) {
+    const d = escapeHtml(item.date);
+    if (item.count === null || item.count === undefined) {
+      return `${d} <span class="muted">(count not listed)</span>`;
+    }
+    return `${d} — <strong>${item.count}</strong> expected`;
+  }
+
+  function totalCount(items) {
+    return (items || []).reduce((sum, it) => sum + (Number.isFinite(it.count) ? it.count : 0), 0);
+  }
+
+  function renderList(items) {
     if (!items || items.length === 0) {
       return '<p class="empty">No assignments listed.</p>';
     }
-​
-    // mode: 'dates' (default) or 'ranges'
-    if (mode === 'ranges') {
-      // Expect items sorted by date. Each item: {date:'MM/DD/YYYY', people:number}
-      // Harvest dates are not necessarily consecutive (e.g., work may be Mon–Thu),
-      // so we display one inclusive min–max range per people-count block.
-      const parse = (s) => {
-        const [mm, dd, yyyy] = String(s).split('/').map(x => parseInt(x, 10));
-        return new Date(yyyy, mm - 1, dd);
-      };
-      const fmt = (d) => {
-        const mm = String(d.getMonth() + 1).padStart(2,'0');
-        const dd = String(d.getDate()).padStart(2,'0');
-        const yy = String(d.getFullYear()).slice(-2);
-        return `${mm}/${dd}/${yy}`;
-      };
-​
-      const blocks = [];
-      let curPeople = null;
-      let curMin = null;
-      let curMax = null;
-​
-      items.forEach(it => {
-        const d = parse(it.date);
-        const p = it.people;
-​
-        if (curPeople === null) {
-          curPeople = p; curMin = d; curMax = d;
-          return;
-        }
-​
-        if (p === curPeople) {
-          if (d < curMin) curMin = d;
-          if (d > curMax) curMax = d;
-        } else {
-          blocks.push({min: curMin, max: curMax, people: curPeople});
-          curPeople = p; curMin = d; curMax = d;
-        }
-      });
-​
-      if (curPeople !== null) blocks.push({min: curMin, max: curMax, people: curPeople});
-​
-      const lis = blocks.map(b => {
-        const rangeText = (b.min.getTime() === b.max.getTime())
-          ? fmt(b.min)
-          : `${fmt(b.min)}–${fmt(b.max)}`;
-        const pplText = (showPeople && b.people !== null && b.people !== undefined)
-          ? ` — <strong>${b.people}</strong>`
-          : '';
-        return `<li>${rangeText}${pplText}</li>`;
-      }).join('');
-​
-      return `<ul>${lis}</ul>`;
-    }
-​
-    // Default: list each date
-    const lis = items.map(it => {
-      const shortDate = (s) => {
-        const parts = String(s).split('/');
-        if (parts.length === 3) {
-          return `${parts[0].padStart(2,'0')}/${parts[1].padStart(2,'0')}/${parts[2].slice(-2)}`;
-        }
-        return s;
-      };
-      const d = escapeHtml(shortDate(it.date));
-      if (!showPeople || it.people === null || it.people === undefined) return `<li>${d}</li>`;
-      return `<li>${d} — <strong>${it.people}</strong></li>`;
-    }).join('');
-    return `<ul>${lis}</ul>`;
+    const lis = items.map(x => `<li>${formatItem(x)}</li>`).join('');
+    const total = totalCount(items);
+    return `<ul>${lis}</ul><div class="total">Total expected: ${total}</div>`;
   }
-​
+
   function update() {
     const stake = stakeSelect.value;
     if (!stake) {
       results.style.display = 'none';
+      summary.style.display = 'none';
+      summary.innerHTML = '';
       return;
     }
     const rec = DATA[stake] || {pruning:[], thinning:[], harvest:[], youth:[]};
-    document.getElementById('pruning').innerHTML = renderList(rec.pruning, true, 'dates');
-    document.getElementById('thinning').innerHTML = renderList(rec.thinning, true, 'dates');
-    document.getElementById('harvest').innerHTML = renderList(rec.harvest, true, 'ranges');
-    document.getElementById('youth').innerHTML = renderList(rec.youth, false, 'dates');
+
+    document.getElementById('pruning').innerHTML = renderList(rec.pruning);
+    document.getElementById('thinning').innerHTML = renderList(rec.thinning);
+    document.getElementById('harvest').innerHTML = renderList(rec.harvest);
+    document.getElementById('youth').innerHTML = renderList(rec.youth);
+
+    const tp = totalCount(rec.pruning);
+    const tt = totalCount(rec.thinning);
+    const th = totalCount(rec.harvest);
+    const ty = totalCount(rec.youth);
+    const grand = tp + tt + th + ty;
+
+    summary.innerHTML = `<strong>${escapeHtml(stake)}</strong> — Expected people (sum of listed counts): 
+      Pruning <strong>${tp}</strong>, Thinning <strong>${tt}</strong>, Harvest <strong>${th}</strong>, Youth Night <strong>${ty}</strong>. 
+      Total <strong>${grand}</strong>.`;
+    summary.style.display = 'block';
+
     results.style.display = 'grid';
   }
-​
+
   // Populate dropdown
   Object.keys(DATA)
     .sort((a,b) => a.localeCompare(b))
@@ -420,9 +230,8 @@ Embed data
       opt.textContent = stake;
       stakeSelect.appendChild(opt);
     });
-​
+
   stakeSelect.addEventListener('change', update);
 </script>
 </body>
 </html>
-​
