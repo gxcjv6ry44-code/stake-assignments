@@ -245,11 +245,7 @@
   // Send height on load and resize
   window.addEventListener("load", sendHeight);
   window.addEventListener("resize", sendHeight);
-  
-  // Also send height after dropdown changes
-  stakeSelect.addEventListener("change", function () {
-    setTimeout(sendHeight, 50);
-  });
+
   </script>
   </body>
   </html>
