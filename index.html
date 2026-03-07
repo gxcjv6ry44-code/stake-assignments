@@ -147,13 +147,7 @@
         document.body.clientHeight,
         document.documentElement.clientHeight
       );
-     if (window.parent) {
-    window.parent.postMessage(
-      { type: "orchardStakeHeight", height: height },
-      "*"
-    );
-  }
-}
+
   function escapeHtml(str) {
     return String(str)
       .replaceAll('&','&amp;')
